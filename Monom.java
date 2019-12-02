@@ -1,6 +1,7 @@
-package matala1;
+package Ex1;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Function;
 
 /**
@@ -279,14 +280,14 @@ public class Monom implements function{
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		function f=new Monom(s);
+		return f;
 	}
 
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		function copy1=new Monom(_coefficient,_power);
+		return copy1;
 	}
 	
 	
