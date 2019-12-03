@@ -1,44 +1,130 @@
-package matala1;
+package Ex1;
 
-import java.util.ArrayList;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class MonomTest {
+import org.junit.jupiter.api.Test;
 
+class MonomTest {
+	@Test
+	void testIsZero() {
+		Monom a=new Monom(0,3);
+		boolean act=a.isZero();
+		assertTrue(act);
+	}
+	/*@Test
+	void testIsZero2() {
+		Monom a=new Monom(1,3);
+		boolean act=a.isZero();
+		assertTrue(act);
+	}*/
+	@Test
+	void testF() {
+		Monom a=new Monom(1,3);
+		double actual=a.f(3.0);
+		assertEquals(27.0, actual);
+	}
+	/*@Test
+	void testF2() {
+		Monom a=new Monom(1,3);
+		double actual=a.f(3.0);
+		assertEquals(2, actual);
+	}*/
 	
+	@Test
+	void testAdd() {
+		Monom a=new Monom(2,3);
+		Monom b=new Monom(1,3);
+		a.add(b);
+		Monom expected=new Monom(3,3);
+		assertTrue(a.equals(expected));
 		
-		public static void main(String[] args) {
-			test1();
-			test2();
-		}
+	}
 	
-		private static void test1() {
-			System.out.println("*****  Test1:  *****");
-			String[] monoms = {"2", "-x","-3.2x^0","0"};
-			for(int i=0;i<monoms.length;i++) {
-				Monom m = new Monom(monoms[i]);
-				String s = m.toString();
-				m = new Monom(s);
-				double fx = m.f(i);
-				System.out.println(i+") "+m +"    \tisZero: "+m.isZero()+"\t f("+i+") = "+fx);
+	@Test
+	void testAdd2() {
+		Monom a=new Monom(2,2);
+		Monom b=new Monom(1,3);
+			try
+			{
+				
+				a.add(b);
+				fail("the powers is diffrent");			}
+			catch (Exception e) {
 			}
-		}
-		
-		private static void test2() {
-			System.out.println("*****  Test2:  *****");
-			ArrayList<Monom> monoms = new ArrayList<Monom>();
-			monoms.add(new Monom(0,5));
-			monoms.add(new Monom(-1,0));
-			monoms.add(new Monom(-1.3,1));
-			monoms.add(new Monom(-2.2,2));
 			
-			for(int i=0;i<monoms.size();i++) {
-				Monom m = new Monom(monoms.get(i));
-				String s = m.toString();
-				Monom m1 = new Monom(s);
-				boolean e = m.equals(m1);
-				System.out.println(i+") "+m +"    \tisZero: "+m.isZero()+"  \teq: "+e);
-			}
 		}
+	
+	@Test
+	void testEquals() {
+		Monom a=new Monom(1,3);
+		Monom b=new Monom(1,3);
+		Monom c=new Monom(1,2);
+		assertTrue(a.equals(b));
+		assertFalse(a.equals(c));
+	}
+	
+	@Test
+	void testsub() {
+		Monom a=new Monom(2,3);
+		Monom b=new Monom(1,3);
+		a.add(b);
+		Monom expected=new Monom(3,3);
+		assertTrue(a.equals(expected));
+		
+	}
+	@Test
+	void testSub2() {
+		Monom a=new Monom(2,2);
+		Monom b=new Monom(1,3);
+			try
+			{
+				a.sub(b);
+				fail("the powers is diffrent");			}
+			catch (Exception e) {
+			}
+			
+		}
+	
+	@Test
+	void testDerivative() {
+		Monom a=new Monom(2.2,4);
+		Monom actual=a.derivative();
+		String Sactual=actual.toString();
+		String expected="8.8x^3";
+		assertEquals(expected,Sactual);
+	}
+	
+	@Test
+	void testToString() {
+		Monom a=new Monom(2.2,4);
+		assertEquals("2.2x^4",a.toString());
+		
+	}
+
+	@Test
+	void testMultiply() {
+		Monom a=new Monom(5,2);
+		Monom b=new Monom(3,1);
+		a.multiply(b);
+		assertEquals("15.0x^3",a.toString());
+	}
+
+
+	@Test
+	void testInitFromString() {
+		String s = "-1.5x^2";
+		function w =new Monom(0,0);
+		function expected=new Monom(-1.5,2);
+		assertEquals(expected.toString(),w.initFromString(s).toString());
+	}
+	
+	@Test
+	void testCopy() {
+		function w =new Monom(4,6);
+		function actual=w.copy();
+		function expected=new Monom(4,6);
+		assertEquals(expected.toString(),actual.toString());
+	}
 
 }
-
