@@ -1,47 +1,115 @@
-package matala1;
+package Ex1;
 
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
 
-public class PolynomTest {
-	public static void main(String[] args) {
-		test1();
-		test2();
+class PolynomTest{
+
+	@Test
+	void testAddMonom() {
+		Monom a=new Monom(3,3);
+		Polynom p =new Polynom("5x^2-2");;
+		p.add(a);
+		assertEquals(p.toString(),"3.0x^3+5.0x^2-2.0");
 	}
-	public static void test1() {
-		Polynom p1 = new Polynom("x^3-x^2-7x");
-		Polynom p2 = new Polynom("x^4-x^3-4x");
-		String[] monoms = {"1","x","x^2", "0.5x^2"};
-		for(int i=0;i<monoms.length;i++) {
-		Monom m = new Monom(monoms[1]);
-		p1.add(m);
-		double aa = p1.area(0, 1, 0.0001);
-		p1.substract(p2);
-		System.out.println(p1);
-	}
+
+	@Test
+	void testToString() {
+		Polynom a=new Polynom("2.2x^4+2.4x");
+		assertEquals("2.2x^4+2.4x",a.toString());
 	}
 	
-	public static void test2() {
-		Polynom p1 = new Polynom(), p2 =  new Polynom();
-		Polynom p3 = new Polynom("3x^2+8x^3+7");
-		String[] monoms1 = {"2", "-x","-3.2x^2","4","-1.5x^2"};
-		String[] monoms2 = {"5", "1.7x","3.2x^2","-3","-1.5x^2"};
-		for(int i=0;i<monoms1.length;i++) {
-			Monom m = new Monom(monoms1[i]);
-			p1.add(m);
-		}
-		for(int i=0;i<monoms2.length;i++) {
-			Monom m = new Monom(monoms2[i]);
-			p2.add(m);
-		}
-		Monom m2 = new Monom("-6x^4");
-		System.out.println(p3);
-		System.out.println("p1: "+p1);
-		System.out.println("p2: "+p2);
-		
-		System.out.println("p1+p2: "+p1);
-		p1.multiply(m2);
-		
-		String s1 = p1.toString();
-		
+	@Test
+	void testF() {
+		Polynom a=new Polynom("2x^4+2.4x+3");
+		double actual= a.f(5);
+	assertEquals(actual,1265);
 	}
+	
+	
+	@Test
+	void testAddPolynom_able() {
+		Polynom_able p1=new Polynom("2x^4+2");
+		Polynom a=new Polynom("2x^4+5x+3");
+		a.add(p1);
+		assertEquals("4.0x^4+5.0x+5.0",a.toString());
+	}
+	
+	@Test
+	void testSubstractMonom() {
+		Polynom a=new Polynom("4x^4+5x");
+		Polynom b=new Polynom("x");
+		a.substract(b);
+		assertEquals("4.0x^4+4.0x",a.toString());
+	}
+
+	
+	@Test
+	void testSubstractPolynom_able() {
+		Polynom a=new Polynom("-3x^6+2x^4+5x+3");
+		Polynom_able p1=new Polynom("2x^3+2x+2");
+		a.substract(p1);
+		assertEquals("-3.0x^6+2.0x^4-2.0x^3+3.0x+1",a.toString());
+	}
+
+	
+	@Test
+	void testMultiplyMonom() {
+		Polynom a=new Polynom("-3x^2+2x+3");
+		Monom b=new Monom("3x");
+		a.multiply(b);
+		assertEquals("-9.0x^3+6.0x^2+9.0x",a.toString());
+	}
+	
+	@Test
+	void testMultiplyPolynom_able() {
+		Polynom a=new Polynom("2x^2+5x+3");
+		Polynom_able p1=new Polynom("2x^3+2x");
+		a.multiply(p1);
+		assertEquals("4.0x^5+10.0x^4+10.0x^3+10.0x^2+6.0x",a.toString());
+	}
+
+	
+	@Test
+	void testIsZero() {
+		Polynom a=new Polynom("2x^2+5x+3");
+		Polynom b=new Polynom("0");
+		assertTrue(b.isZero());
+		assertFalse(a.isZero());
+	}
+	
+	@Test
+	void testDerivative() {
+		Polynom a=new Polynom("2x^2+5x+3");
+		Polynom_able actual=a.derivative();
+		assertEquals("4.0x+5.0",actual.toString());
+	}
+
+	
+	@Test
+	void testCopy() {
+		Polynom a=new Polynom("2x^2+5x+3");
+		Polynom_able actual=a.copy();
+		assertEquals("2.0x^2+5.0x+3.0",actual.toString());
+	}
+
+	
+
+	@Test
+	void testEqualsPolynom_able() {
+		Polynom a=new Polynom("2x^2+5x+3");
+		Polynom_able p1=new Polynom("2x^2+5x+3");
+		assertTrue(a.equals(p1));
+	}
+
+	@Test
+	void testInitFromString() {
+		String s="2x^2+5x-6";
+		function f=new Polynom(s);
+		function expected=new Polynom(s);
+		assertEquals(expected.toString(),expected.initFromString(s).toString());
+	}
+
+
 }
