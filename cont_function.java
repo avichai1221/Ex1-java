@@ -27,4 +27,6 @@ public interface cont_function extends function{
 	 * @return an approximated value (root) for this (cont.) function 
 	 */
 	public double root(double x0, double x1, double eps);
+
+	boolean equals(Polynom_able p1);
 }

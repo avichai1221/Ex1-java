@@ -1,4 +1,4 @@
-package matala1;
+package Ex1;
 
 
 //import java.util.List;
@@ -226,7 +226,9 @@ public class Polynom implements Polynom_able{
 	 * @param Monom m1
 	 * @return Polynom
 	 */
-	public Polynom multiply1(Monom m1) {
+	public void multiply(Monom m1) {
+		Monom ZERO=new Monom(0,2);
+		Polynom save=new Polynom("0");
 		if(this.isZero()||m1.isZero()) {
 			Polynom1.clear();
 		}
@@ -236,9 +238,12 @@ public class Polynom implements Polynom_able{
 		{
 			Monom m=it.next();
 			m.multiply(m1);
+			save.add(m);
 		}
-		return (Polynom) copy1;
-
+		
+		this.multiply1(ZERO);
+		this.add(save);
+		
 	}
 
 	/**
@@ -432,8 +437,7 @@ public class Polynom implements Polynom_able{
 		return s;
 	}
 
-	public void multiply(Monom m1) {
-		String s=" ";
+	public Polynom multiply1(Monom m1) {
 		if(this.isZero()||m1.isZero()) {
 			Polynom1.clear();
 		}
@@ -443,16 +447,16 @@ public class Polynom implements Polynom_able{
 		{
 			Monom m=it.next();
 			m.multiply(m1);
-			s=s+m;
 		}
-		System.out.println("the multuply : " + s);
-		
+		return (Polynom) copy1;
+
 	}
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		function f=new Polynom(s);
+		return f;
 	}
 
 }
+

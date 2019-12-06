@@ -278,13 +278,13 @@ public class Monom implements function{
 	
 	private static Monom getNewZeroMonom() {return new Monom(ZERO);}
 
-	@Override
+	
 	public function initFromString(String s) {
 		function f=new Monom(s);
 		return f;
 	}
 
-	@Override
+	
 	public function copy() {
 		function copy1=new Monom(_coefficient,_power);
 		return copy1;

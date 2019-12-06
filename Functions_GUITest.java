@@ -1,14 +1,7 @@
-package Ex1Testing;
+package Ex1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import Ex1.ComplexFunction;
-import Ex1.Functions_GUI;
-import Ex1.Monom;
-import Ex1.Polynom;
-import Ex1.Range;
-import Ex1.function;
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
  * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
@@ -63,7 +56,7 @@ class Functions_GUITest {
 
 	@Test
 	void testDrawFunctionsIntIntRangeRangeInt() {
-		_data.drawFunctions();
+	//	_data.drawFunctions();
 		//fail("Not yet implemented");
 	}
 	public static Functions_GUI FunctionsFactory() {
@@ -91,14 +84,14 @@ class Functions_GUITest {
 		function cf6 = cf4.initFromString(s2);
 		ans.add(cf5.copy());
 		ans.add(cf6.copy());
-		ComplexFunction max = new ComplexFunction(ans.get(0).copy());
-		ComplexFunction min = new ComplexFunction(ans.get(0).copy());
-		for(int i=1;i<ans.size();i++) {
-			max.max(ans.get(i));
-			min.min(ans.get(i));
-		}
-		ans.add(max);
-		ans.add(min);
+	//	ComplexFunction max = new ComplexFunction(ans.get(0).copy());
+	//	ComplexFunction min = new ComplexFunction(ans.get(0).copy());
+	//	for(int i=1;i<ans.size();i++) {
+		//	max.max(ans.get(i));
+	//		min.min(ans.get(i));
+	//	}
+	//	ans.add(max);
+	//	ans.add(min);
 		
 		return ans;
 	}
