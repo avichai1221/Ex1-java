@@ -3,85 +3,74 @@ package Ex1;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Functions_GUI implements functions{
-
+	LinkedList<function> collection= new LinkedList<function>();
 	@Override
-	public boolean add(function arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean add(function f) {
+		return collection.add(f);
+	
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends function> arg0) {
+	public boolean addAll(Collection<? extends function> f) {
 		// TODO Auto-generated method stub
-		return false;
+		return collection.addAll(f);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		collection.clear();
 		
 	}
 
 	@Override
-	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean contains(Object o) {
+		return collection.contains(o);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return collection.containsAll(arg0);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return collection.isEmpty();
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return collection.iterator();
 	}
 
-	@Override
-	public boolean remove(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return collection.removeAll(arg0);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return collection.retainAll(arg0);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return collection.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return collection.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return collection.toArray(arg0);
 	}
 
 	@Override
@@ -111,6 +100,12 @@ public class Functions_GUI implements functions{
 	public function get(int i) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean remove(Object arg0) {
+		return collection.remove(arg0);
+
 	}
 
 }
