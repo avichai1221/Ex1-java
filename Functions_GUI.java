@@ -1,6 +1,11 @@
 package Ex1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -74,14 +79,52 @@ public class Functions_GUI implements functions{
 	}
 
 	@Override
-	public void initFromFile(String file) throws IOException {
-		// TODO Auto-generated method stub
+	public void initFromFile(String file) throws IOException 
+		 {
+		   String line = "";
+		    
+		        try 
+		        {
+		        	BufferedReader br = new BufferedReader(new FileReader(file));
+		        	ComplexFunction cfHelp=new ComplexFunction();
+		            while ((line = br.readLine()) != null) 
+		            {
+		            	function fHelp= cfHelp.initFromString(line);
+		            	collection.add(fHelp);
+		            }
+		            br.close();
+		        } 
+		        catch (IOException e) 
+		        {
+		            e.printStackTrace();
+		            System.out.println("could not read file");
+		        }
 		
 	}
 
 	@Override
-	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
+	public void saveToFile(String file) throws IOException 
+		{	
+			try 
+			{
+				PrintWriter pw = new PrintWriter(new File(file));
+				
+				StringBuilder sb = new StringBuilder();
+				
+				Iterator <function> it = collection.iterator();
+				while (it.hasNext())
+				{
+				sb.append(it.next().toString()+"\n");
+				}
+				pw.write(sb.toString());
+				pw.close();
+			} 
+			catch (FileNotFoundException e) 
+			{
+				e.printStackTrace();
+				return;
+			}
+		
 		
 	}
 
@@ -98,8 +141,7 @@ public class Functions_GUI implements functions{
 	}
 
 	public function get(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		return collection.get(i);
 	}
 
 	@Override
