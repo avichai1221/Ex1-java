@@ -64,80 +64,98 @@ public class ComplexFunction implements complex_function
 	////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public function initFromString(String s) 
+	public double f(double x)
 	{
-		if(s==null) {throw new RuntimeException("got a null string");}//if its null
-		if(s.contains("^-")){throw new RuntimeException("got a negative power");}//if its got a negative power
-	
-		int save1=0;
-		String s1="";
-		if (s.contains(","))
-			for (int i = 0; i < s.length(); i++)
-			{
-			if (s.charAt(i)=='(')
-				{
-				save1=i;
-				if (s.charAt(i)==',') s1=s1.substring(i, save1);
-				Polynom cc=new Polynom(s1);
-				}
-			if (s.charAt(i)==',')
-			{
-			save1=i;
-			if (s.charAt(i)==')') s1=s1.substring(i, save1);
-			Polynom ccc=new Polynom(s1);
-			}
-			
-			}
+	if (op==Operation.None||op==Operation.Error)
+	{
+		System.out.println("Something is wrong-Unable to calculate (op= None or Error)");
+	}
+		if(op==Operation.Divid) 
+			return left.f(x)/right.f(x);
 		
+		if(op==Operation.Plus) 
+			return left.f(x)+right.f(x);
 		
-		String op="";
-		int i = 0,save=0;
-		function L=new Polynom();
-		Operation test=null;
-		while ( i !=s.length())
-		{
-			if(s.charAt(i)=='(')
-			{
-				op=s.substring(0, i);
-				save=i;
-				i++;
-			}
-			if(s.charAt(i)==',') 
-			{
-				L=new Polynom(s.substring(save+1, i));
-				break;
-			}
-			i++;	
-		}
-		function R=new Polynom(s.substring(i+1, s.length()-1));
-		if(op.charAt(0)=='d')
-		{
-			test=Operation.Divid;
-		}
-		if(op.charAt(0)=='m'&& op.charAt(1)=='u')
-		{
-			test=Operation.Times;
-		}
-		if(op.charAt(0)=='p')
-		{
-			test=Operation.Plus;
-		}
-		if(op.charAt(0)=='c')
-		{
-			test=Operation.Comp;
-		}
-		if(op.charAt(0)=='m'&& op.charAt(1)=='i')
-		{
-			test=Operation.Min;
-		}
-		if(op.charAt(0)=='m'&& op.charAt(1)=='a')
-		{
-			test=Operation.Max;
-		}
-		ComplexFunction x=new ComplexFunction(test,L,R);
-		return x;
+		if(op==Operation.Times) 
+			return left.f(x)*right.f(x);
+		
+		if(op==Operation.Max) 
+			return Math.max(left.f(x), right.f(x)); 
+		
+		if(op==Operation.Min)
+			return Math.min(left.f(x), right.f(x));
+		
+		if(op==Operation.Comp)
+			return left.f(right.f(x));
+		return 0;
 	}
 
+	@Override
+	public function initFromString(String s)
+	{
+		
+		String op=""; 
+		String left1="";
+		String right1="";
+		String ans="";
+		int start=0;
+		int end=s.length()-1;
+		if(!s.contains(",")&&!s.contains("+")&&!s.contains("-"))
+			return new Monom(s);
+		
+		if(!s.contains(",") && (s.contains("+") || s.contains("-")))
+			return new Polynom(s);
+		
+		while(s.charAt(start)!='(') 
+		{
+			op=op+s.charAt(start);
+			start++;
+		}
+		
+		start++;
+		while(s.charAt(start)!='(' && s.charAt(start) !=',')
+		{
+			ans=ans+s.charAt(start);
+			start++;
+		}
+		
+		if(s.charAt(start)=='(') {
+			int temp=0;
+			boolean f=true; 
+			while(f) {
+				
+				if(s.charAt(start)=='(')
+					temp++; 
+				if(s.charAt(start)==')')
+					temp--;
+				
+				ans=ans+s.charAt(start); 
+				start++;
+				
+				if(temp==0)
+					f=false;
+			}
+		
+			left1=ans;
+			right1=s.substring(start+1, end);
+			op=switchOp(op); 
+		}
+
+		if(s.charAt(start)==',') {
+			left1=ans;
+			right1=s.substring(start+1, end);
+			op=switchOp(op); 
+			
+		}
+		
+		function left=initFromString(left1);
+		function right=initFromString(right1);
+		op=switchOp(op); 
+		
+		
+		return new ComplexFunction(op,left,right);
+	
+	}
 
 
 	@Override
@@ -161,9 +179,63 @@ public class ComplexFunction implements complex_function
 
 	}
 
+	private String switchOp(String Operator) 
+
+	{
+		
+		if(Operator=="Plus"||Operator=="Times"||Operator=="Comp"||Operator=="Divid"||Operator=="Max"||Operator=="Min") {
+			return Operator;
+		}
+		
+		switch(Operator) {
+		
+
+		case "comp":{
+
+			return "Comp";
+			
+		}
+
+		case "mul":{
+
+			return "Times";
+
+		}
+
+		case "div":{
+
+			return "Divid";
+
+		}
+
+		case "plus":{
+
+			return "Plus";
+
+		}
+
+		case "max":{
+
+			return "Max";
+
+		}
+
+		case "min":{
+
+			return "Min";
+
+		}
+
+		default:
+
+			return "None";
+
+		}
+	}
 
 	@Override
-	public void mul(function f1) {
+	public void mul(function f1)
+	{
 		this.plus(f1);
 		this.op=Operation.Times;
 		/*	Operation op=Operation.Times;
@@ -288,59 +360,6 @@ public class ComplexFunction implements complex_function
 				return (function)ans;
 	}
 
-	@Override
-	public double f(double x)
-	{
-
-		Polynom helpLeft=new Polynom();
-		Polynom helpRight=new Polynom();
-		if (this.right!=null)
-		{
-			switch(this.op)
-			{
-			case None:
-				System.out.println("Something is wrong-Unable to calculate");
-				break;
-			case Error:
-				System.out.println("Something is wrong-Unable to calculate");
-				break;
-			case Plus:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-
-				return helpRight.f(x)+helpLeft.f(x);
-			case Times:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-				return helpRight.f(x)*helpLeft.f(x);
-			case Divid:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-				return helpLeft.f(x)/helpRight.f(x);
-			case Max:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-				return Math.max(helpRight.f(x),helpLeft.f(x));
-			case Min:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-				return Math.min(helpRight.f(x),helpLeft.f(x));
-			case Comp:
-				helpLeft=new Polynom(this.left.toString());
-				helpRight=new Polynom(this.right.toString());
-				return helpLeft.f(helpRight.f(x));
-			default:
-
-
-			}
-		}
-		else
-		{
-			helpLeft=new Polynom(this.left.toString());
-			return helpLeft.f(x);
-		}
-		return 0;
-	}
 	
 	public boolean equals(Object obj) {
 String one=this.toString();
