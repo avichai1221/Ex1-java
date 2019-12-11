@@ -40,16 +40,25 @@ There is several functions you can work with the polynom :
 13) You can get the root of this polynom between two points
 14) You can get the area of this polynom between two points (above axis x)
 the class ComplexFunction:
+
 This class can help you to work with ComplexFunction.
+
 You can built them in three different ways.
+
 with 2 functions and operation or with 2 functions and string for the operation.
+
 with 1 functions (left).
+
 There is several functions you can work with ComplexFunction :
+
 You can add anuter function.
+
 You can multiply another function.
+
 You can divides another function.
 You can get the maximum between complex functions and function.
 You can get the minimom between complex functions and function.
+
 you can get complex functions(f1(x))-->comp
 You can returns the left side of the complex function.
 You can returns the right side of the complex function.
