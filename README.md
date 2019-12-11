@@ -53,22 +53,13 @@ with 1 functions (left).
 There is several functions you can work with ComplexFunction :
 
 1)You can add anuter function.
-
 2)You can multiply another function.
-
 3)You can divides another function.
-
 4)You can get the maximum between complex functions and function.
-
 5)You can get the minimom between complex functions and function.
-
-
 6)you can get complex functions(f1(x))-->comp
-
 7)You can returns the left side of the complex function.
-
 8)You can returns the right side of the complex function.
-
 9)you can get the op.
 
 This class Functions_GUI:
