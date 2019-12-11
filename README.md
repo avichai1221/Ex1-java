@@ -39,6 +39,7 @@ There is several functions you can work with the polynom :
 12) You create deep copy of this polynom
 13) You can get the root of this polynom between two points
 14) You can get the area of this polynom between two points (above axis x)
+
 the class ComplexFunction:
 
 This class can help you to work with ComplexFunction.
@@ -56,18 +57,31 @@ You can add anuter function.
 You can multiply another function.
 
 You can divides another function.
+
 You can get the maximum between complex functions and function.
+
 You can get the minimom between complex functions and function.
 
+
 you can get complex functions(f1(x))-->comp
+
 You can returns the left side of the complex function.
+
 You can returns the right side of the complex function.
+
 you can get the op.
+
 This class Functions_GUI:
+
 This class can help you to work with GUI.
+
 this class extend from collection so it can did all the functions that collection can. (it is implements).
+
 this class can get new collection of functions from a file.
+
 this class can draws all the functions in the collection in a GUI window using the
   given parameters for the GUI windows and the range & resolution.
+  
   this class can draws all the functions in the collection in a GUI window using the given JSON file.
-  this class can a new collection of functions from a file
+  
+  this class can a new collection of functions from a file.
