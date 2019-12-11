@@ -52,24 +52,24 @@ with 1 functions (left).
 
 There is several functions you can work with ComplexFunction :
 
-You can add anuter function.
+1)You can add anuter function.
 
-You can multiply another function.
+2)You can multiply another function.
 
-You can divides another function.
+3)You can divides another function.
 
-You can get the maximum between complex functions and function.
+4)You can get the maximum between complex functions and function.
 
-You can get the minimom between complex functions and function.
+5)You can get the minimom between complex functions and function.
 
 
-you can get complex functions(f1(x))-->comp
+6)you can get complex functions(f1(x))-->comp
 
-You can returns the left side of the complex function.
+7)You can returns the left side of the complex function.
 
-You can returns the right side of the complex function.
+8)You can returns the right side of the complex function.
 
-you can get the op.
+9)you can get the op.
 
 This class Functions_GUI:
 
@@ -80,8 +80,8 @@ this class extend from collection so it can did all the functions that collectio
 this class can get new collection of functions from a file.
 
 this class can draws all the functions in the collection in a GUI window using the
-  given parameters for the GUI windows and the range & resolution.
+given parameters for the GUI windows and the range & resolution.
   
-  this class can draws all the functions in the collection in a GUI window using the given JSON file.
+this class can draws all the functions in the collection in a GUI window using the given JSON file.
   
-  this class can a new collection of functions from a file.
+this class can a new collection of functions from a file.
