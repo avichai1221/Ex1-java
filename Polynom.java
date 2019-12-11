@@ -39,8 +39,14 @@ public class Polynom implements Polynom_able{
 		if(s==null) {throw new RuntimeException("got a null string");}//if its null
 		if(s.contains("^-")){throw new RuntimeException("got a negative power");}//if its got a negative power
 		if(s.contains("@")){throw new RuntimeException("got a @ -not legal");}//if its got '@'
+		String snew="";
+		for (int i = 0; i < s.length(); i++)
+		{
+			if(s.charAt(i)!=' ') 
+				snew=snew+s.charAt(i);
+		}
 		Polynom1= new ArrayList<Monom>(); 
-		String newS =newString(s);      // its make before every "+" to "@+" for the sake of the split function
+		String newS =newString(snew);      // its make before every "+" to "@+" for the sake of the split function
 		String[] parts1 = newS.split("@+"); //split according to "@+"
 		for (int i = 0; i < parts1.length; i++) {
 			String[] parts2 = parts1[i].split("(?=-)");// split anther time for the "-" sign
