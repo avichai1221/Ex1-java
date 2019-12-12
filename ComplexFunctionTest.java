@@ -1,4 +1,4 @@
-package matala1;
+package Ex1;
 /**
  * 
 
