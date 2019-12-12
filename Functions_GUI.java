@@ -1,147 +1,152 @@
 package Ex1;
-
-
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.List;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.PrintWriter;
+import java.security.Policy.Parameters;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
-public class Functions_GUI implements functions {
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-	public ArrayList<function> funcs = new ArrayList<function>();
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+
+
+
+public class Functions_GUI implements functions{
+	LinkedList<function> collection= new LinkedList<function>();
+	@Override
+	public boolean add(function f) {
+		return collection.add(f);
 	
-	public Functions_GUI()
-	{
-		
-	}
-	@Override
-	public boolean add(function arg0) 
-	{
-		return funcs.add(arg0);
-		
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends function> arg0) {
-		return funcs.addAll(arg0);
-		
+	public boolean addAll(Collection<? extends function> f)
+	{
+		return collection.addAll(f);
 	}
 
 	@Override
 	public void clear() {
-		funcs.clear();
+		collection.clear();
 		
 	}
 
 	@Override
-	public boolean contains(Object arg0) {
-		
-		return funcs.contains(arg0);
+	public boolean contains(Object o) {
+		return collection.contains(o);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		return funcs.containsAll(arg0);
+		
+		return collection.containsAll(arg0);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return funcs.isEmpty();
+		return collection.isEmpty();
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		
-		return funcs.iterator();
+		return collection.iterator();
 	}
 
-	@Override
-	public boolean remove(Object arg0) {
-		return funcs.remove(arg0);
-	}
+
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-	
-		return funcs.removeAll(arg0);
+		return collection.removeAll(arg0);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		return funcs.retainAll(arg0);
+		return collection.retainAll(arg0);
 	}
 
 	@Override
 	public int size() {
-		return funcs.size();
+		return collection.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		return funcs.toArray();
+		return collection.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		return funcs.toArray(arg0);
+		return collection.toArray(arg0);
 	}
 
 	@Override
-	public void initFromFile(String file) throws IOException {
-		ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x+1"),new Polynom("x+1"));
-
-		  
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		String st; 
-		while ((st = br.readLine()) != null) {
-		  funcs.add(cf4.initFromString(st)); 
-		  
-		}
-		br.close();
-	
+	public void initFromFile(String file) throws IOException 
+		 {
+		   String line = "";
+		    
+		        try 
+		        {
+		        	BufferedReader br = new BufferedReader(new FileReader(file));
+		        	ComplexFunction cfHelp=new ComplexFunction();
+		            while ((line = br.readLine()) != null) 
+		            {
+		            	function fHelp= cfHelp.initFromString(line);
+		            	collection.add(fHelp);
+		            }
+		            br.close();
+		        } 
+		        catch (IOException e) 
+		        {
+		            e.printStackTrace();
+		            System.out.println("could not read file");
+		        }
+		
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException 
-	{
-			File f= new File(file);
-			f.createNewFile();
-		    BufferedWriter buffer = new BufferedWriter(new FileWriter(f));
-		    for (function function : funcs) 
-		    {
-			    buffer.write(function.toString()+"\n");
-			    buffer.newLine();
-		    }
+		{	
+			try 
+			{
+				PrintWriter pw = new PrintWriter(new File(file));
+				
+				StringBuilder sb = new StringBuilder();
+				
+				Iterator <function> it = collection.iterator();
+				while (it.hasNext())
+				{
+				sb.append(it.next().toString()+"\n");
+				}
+				pw.write(sb.toString());
+				pw.close();
+			} 
+			catch (FileNotFoundException e) 
+			{
+				e.printStackTrace();
+				return;
+			}
+		
+		
+	}
 
-		 
-		    buffer.close();
-		    
-		    Path currentRelativePath = Paths.get("");
-		    String s = currentRelativePath.toAbsolutePath().toString();
-		    System.out.println("Current relative path is: " + s);	
-		    }
 
 	@Override
-	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		
-	
-		
+	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) 
+	{
 		
 
 		double AxisX=rx.get_max()-rx.get_min();
-	
+		double AxisY=ry.get_max()-ry.get_min();
 		StdDraw.setXscale(rx.get_min(),rx.get_max()); 
 		StdDraw.setYscale(ry.get_min(),ry.get_max()); 
 		StdDraw.setPenColor(Color.BLACK);
@@ -164,7 +169,7 @@ public class Functions_GUI implements functions {
 		StdDraw.setPenRadius(0.003);
 		Color[] ColorsFunctions= {Color.blue, Color.cyan,
 				Color.MAGENTA, Color.ORANGE, Color.red, Color.GREEN, Color.PINK};
-		for(int i=0;i<funcs.size();i++)// all function 
+		for(int i=0;i<collection.size();i++)// all function 
 		{
 			double Step=AxisX/resolution;
 			double help=rx.get_min();
@@ -172,38 +177,54 @@ public class Functions_GUI implements functions {
 			StdDraw.setPenColor(ColorsFunctions[helpForColor]);
 			while(help<rx.get_max())
 			{
-				StdDraw.line(help, funcs.get(i).f(help),help+Step,funcs.get(i).f(help+Step));
+				StdDraw.line(help, collection.get(i).f(help),help+Step,collection.get(i).f(help+Step));
 				help=help+Step;
 			}
 			
 		}
-	
-	
-	}
-	
 
+	}
 
 	@Override
-	public void drawFunctions(String json_file) {
-
-		
+	public boolean remove(Object o) {
+		return collection.remove(o);
 	}
 
-		
 	
-
 	@Override
-	public String toString() 
+	public void drawFunctions(String json_file) 
 	{
-		return funcs.toString();
+		  Gson gson = new Gson();
+	        try {
+	            FileReader reader = new FileReader(json_file);
+	            helpFordrawFunctions fromJson =  gson.fromJson(reader,helpFordrawFunctions.class);
+	            Range forX = new Range(fromJson.Range_X[0],fromJson.Range_X[1]);
+	            Range forY = new Range(fromJson.Range_Y[0], fromJson.Range_Y[1]);
+	            drawFunctions(fromJson.Width, fromJson.Height, forX, forY, fromJson.Resolution);
+	        }
+	        catch (FileNotFoundException e) {
+	        	int w=1000, h=600, res=200;
+	    		Range rx = new Range(-10,10);
+	    		Range ry = new Range(-5,15);
+	    		drawFunctions(w,h,rx,ry,res);
+	            e.printStackTrace();
+	        }
+		
 	}
-
-	public function get(int i) 
+	public String toString()
 	{
-		if(i<funcs.size())
-			return funcs.get(i);
-		return null;
+		return collection.toString();
 	}
 
-	}
+/////////////////////////class help////////////////////////////////
+public class helpFordrawFunctions {
 
+public int Width;
+public int Height;
+public int Resolution;
+public double[] Range_X;
+public double[] Range_Y;
+}
+
+
+}
