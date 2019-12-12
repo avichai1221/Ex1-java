@@ -2,6 +2,8 @@ package Ex1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 
 class PolynomTest{
@@ -35,6 +37,49 @@ class PolynomTest{
 		a.add(p1);
 		assertEquals("4.0x^4+5.0x+5.0",a.toString());
 	}
+	
+	@Test
+	public void testPolynomString() {
+		Polynom m1 =new Polynom("1");
+
+		String s=m1.toString();
+
+		if(!s.equals("1"))
+
+			fail("Not the same polynom");
+	}
+	@Test
+	public void testPolynom() {
+		Polynom m =new Polynom();
+
+		String s=m.toString();
+
+		if(!s.equals("0")) {
+
+			fail("this Should to be an empty polynom!");
+
+		}
+	}
+	@Test
+	public void testRoot() {
+		Polynom p =new Polynom("x^3-x^2-7x");
+		double epsilon = 0.0001;
+		double a=Math.abs(p.root(3.19, 5, 0.01)-3.1935351562500003);
+		if(a<epsilon)
+			assertTrue(true);
+		assertFalse(false);
+	
+		
+	}
+	
+	@Test
+	void testArea() {
+		Polynom p=new Polynom("4x^4+23x^7+7");
+		double a=p.area(-2, 3, 100);
+		
+		assertEquals(14636.0625,a);
+	}
+	
 	
 	@Test
 	void testSubstractMonom() {
@@ -86,7 +131,6 @@ class PolynomTest{
 		assertEquals("4.0x+5.0",actual.toString());
 	}
 
-	
 	@Test
 	void testCopy() {
 		Polynom a=new Polynom("2x^2+5x+3");
