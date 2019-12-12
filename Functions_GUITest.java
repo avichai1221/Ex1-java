@@ -118,11 +118,11 @@ class Functions_GUITest {
 	
 	}
 
-/*	@Test
+	@Test
 	void testDrawFunctionsIntIntRangeRangeInt() {
 		_data.drawFunctions("GUI_params.txt");
 		//fail("Not yet implemented");
-	}*/
+	}
 	
 	public static functions FunctionsFactory() {
 		functions ans = new Functions_GUI();
