@@ -1,4 +1,4 @@
-package Ex1ready;
+package Ex1;
 
 public class ComplexFunction implements complex_function
 {
