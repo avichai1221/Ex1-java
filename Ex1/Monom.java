@@ -19,7 +19,7 @@ public class Monom implements function{
 	public static final Comparator<Monom> _Comp = new Monom_Comperator();
 	public static Comparator<Monom> getComp() {return _Comp;}
 	private double _coefficient;  
-	
+	//et
 	private int _power;
 	/**
 	 * this is regular constructor 
